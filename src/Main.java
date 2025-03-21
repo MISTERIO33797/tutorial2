@@ -1,24 +1,25 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
-        int[] array1 = {1, 2, 3, 4, 5, 6};
-        int[] array2 = {2, 3, 4, 5, 6, 7};
-        int[] array3 = {7, 8, 9, 10, 11};
-        System.out.println(Arrays.toString(filterEvenIndexOddValue(array1)));
-        System.out.println(Arrays.toString(filterEvenIndexOddValue(array2)));
-        System.out.println(Arrays.toString(filterEvenIndexOddValue(array3)));
+        int[] array1 = {3, 3, 3, 2, 2};
+        int[] array2 = {1, 2, 3, 4};
+        int[] array3 = {5, 5, 5, 1};
+        System.out.println(findDominant(array1));
+        System.out.println(findDominant(array2));
+        System.out.println(findDominant(array3));
     }
 
-    public static int[] filterEvenIndexOddValue(int[] array) {
-        ArrayList<Integer> result = new ArrayList<>();
-
-        for (int i = 0; i < array.length; i += 2) {
-            if (array[i] % 2 != 0) {
-                result.add(array[i]);
+    public static int findDominant(int[] array) {
+        HashMap<Integer, Integer> countMap = new HashMap<>();
+        int n = array.length;
+        int threshold = n / 2;
+        for (int num : array) {
+            countMap.put(num, countMap.getOrDefault(num, 0) + 1);
+            if (countMap.get(num) > threshold) {
+                return num;
             }
         }
-        return result.stream().mapToInt(Integer::intValue).toArray();
+        return -1;
     }
 }
